@@ -23,3 +23,4 @@ Examples:
 
 `--- Reflection Below This Line ---`
 
+In this assignment, I learned how to use Streamlit to create web interfaces for Python programs. Building the three programs taught me how to take user input through text areas and file uploaders, display information back to users in a readable format, track data across multiple file uploads using session state, and process files and save results to JSON. 

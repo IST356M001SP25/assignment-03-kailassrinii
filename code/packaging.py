@@ -1,6 +1,28 @@
 '''
-This is a module for parsing packging data
+This is a module for parsing package data
 '''
+
+class Package:
+    def __init__(self, length: float, width: float, height: float):
+        self.length = length
+        self.width = width
+        self.height = height
+
+def parse_package_string(package_str: str) -> Package:
+    '''
+    Parse a string containing package dimensions and return a Package object.
+    Expected format: "length width height"
+    Example: "10 20 30" creates a Package with length=10, width=20, height=30
+    '''
+    try:
+        dimensions = package_str.strip().split()
+        if len(dimensions) != 3:
+            raise ValueError("Package string must contain exactly 3 numbers")
+            
+        length, width, height = map(float, dimensions)
+        return Package(length, width, height)
+    except ValueError as e:
+        raise ValueError(f"Invalid package string format. Error: {str(e)}")
 
 def parse_packaging(packaging_data: str) -> list[dict]:
     '''
@@ -68,13 +90,20 @@ def get_unit(package: list[dict]) -> str:
     return list(package[0].keys())[0]
 
 # This will only run from here, not when imported
-# # Use this for testing / debugging cases with the debugger
+# Use this for testing / debugging cases with the debugger
 if __name__ == '__main__':
+    # Test the package dimensions parser
+    test_str = "10 20 30"
+    package = parse_package_string(test_str)
+    print(f"Length: {package.length}")
+    print(f"Width: {package.width}")
+    print(f"Height: {package.height}")
     
+    # Test the packaging parser
     text = "25 balls in 1 bucket / 4 buckets in 1 bin"
-    package = parse_packaging(text)
-    print(package)
+    package_data = parse_packaging(text)
+    print(package_data)
 
-    package_total = calc_total_units(package)
-    unit = get_unit(package)
+    package_total = calc_total_units(package_data)
+    unit = get_unit(package_data)
     print(f"{package_total} {unit} total")
